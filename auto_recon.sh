@@ -1,6 +1,12 @@
 #!/bin/bash
 
-BASE="$HOME/BB-Recon"
+BASE="$(pwd)"
+
+if [ ! -d "$BASE/bounty-targets-data" ]; then
+    echo "[+] Cloning bounty-targets-data..."
+    git clone https://github.com/arkadiyt/bounty-targets-data.git
+fi
+
 DATA="$BASE/bounty-targets-data/data/domains.txt"
 
 echo "[+] Pulling latest targets..."
@@ -8,7 +14,7 @@ echo "[+] Pulling latest targets..."
 cd "$BASE/bounty-targets-data" || exit
 git pull --quiet
 
-echo "[+] Extracting newest 20 targets..."
+echo "[+] Extracting newest 100 targets..."
 
 tail -100 "$DATA" \
 | sort -u \
